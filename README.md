@@ -21,3 +21,8 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 ## Developer's Notes
 
 This Todo List app was built to work with React forms and the movement of data between parent/child components.
+
+You will need to install all dependencies before starting the application. After downloading the repo, navigate to the project foler and run:
+`npm install`
+Now that all dependencies are installed you can start the dev server with;
+`npm start`
