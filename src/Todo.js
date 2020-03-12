@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Todo.css';
+import { CSSTransition } from 'react-transition-group';
 
 class Todo extends Component {
   constructor(props) {
@@ -43,24 +44,43 @@ class Todo extends Component {
     let result;
     if(this.state.isEditing) {
       result = (
-        <div>
-          <form onSubmit={ this.handleUpdate }>
-            <input type="text" value={ this.state.task } name="task" onChange={ this.handleChange } />
+        <CSSTransition key="editing" timeout={ 500 } classNames="form">
+          <form className="Todo-edit-form" onSubmit={ this.handleUpdate }>
+            <input
+              type="text"
+              value={ this.state.task }
+              name="task"
+              onChange={ this.handleChange }
+            />
             <button>Save</button>
           </form>
-        </div>
+        </CSSTransition>
       );
     } else {
       result = (
-        <div>
-          <li className={ this.props.completed ? "completed" : "" } onClick={ this.handleToggle }>{ this.props.task }</li>
-          <button onClick={ this.toggleForm }>Edit</button>
-          <button onClick={ this.handleRemove }>X</button>
-        </div>
+        <CSSTransition key="normal" timeout={ 500 } classNames="task-text">
+          <li className="Todo-task" onClick={ this.handleToggle }>
+            { this.props.task }
+          </li>
+        </CSSTransition>
       );
     }
 
-    return result;
+    return (
+      <div
+        className={ this.props.completed ? "Todo completed" : "Todo" }
+      >
+        { result }
+        <div className="Todo-buttons">
+          <button onClick={ this.toggleForm }>
+            <i className="fas fa-pen" />
+          </button>
+          <button onClick={ this.handleRemove }>
+            <i className="fas fa-trash" />
+          </button>
+        </div>
+      </div>
+    );
   }
 }
 
